@@ -36,17 +36,16 @@ def make_wordcloud_chart(jobs_df):
     all_wc = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(skills_freq)
     plt.axis('off')
     plt.imshow(all_wc, interpolation='bilinear')
-    ax = plt.gcf()
 
-    return ax
+    return plt
 
 
 ##  Barh charts (count skills by levels)
 
 # Dashboard Main Panel
-col = st.columns(2) # Two columns with equal width
-
 st.markdown('## US Data Science Jobs Dashboard')
+
+col = st.columns(2) # Two columns with equal width
 
 with col[0]:
     st.markdown('### Jobs by Location')
@@ -59,6 +58,6 @@ with col[0]:
 with col[1]:
     st.markdown('### Top 20 Needed Skills')
     wc_chart = make_wordcloud_chart(jobs_df)
-    st.pyplot(wc_chart.figure)
+    st.pyplot(fig=wc_chart)
 
     st.markdown('### Top 5 Need Skills by Level')
