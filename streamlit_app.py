@@ -102,7 +102,7 @@ with row1_col[1]:
                         hide_index=True,
                         column_config={
                             'job_link': st.column_config.LinkColumn('Job Link'), 'job_title': 'Job Title', 'company': 'Company', 'job_location': 'Job Location', 'job_type': 'Job Type', 'job_skills': 'Job Skills'},
-                        column_order=('Job Title', 'Company', 'Job Type', 'Job Location', 'Job Skills', 'Job Link'),
+                        column_order=('job_title', 'company', 'job_type', 'job_location', 'job_skills', 'job_link'),
                         use_container_width=True)
 
 row2_col = st.columns(3) # 3 columns with equal width
