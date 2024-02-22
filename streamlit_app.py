@@ -80,10 +80,12 @@ st.markdown('<h2 style="text-align: center; color: black; background-color: #9ec
 row1_col = st.columns(2)
 
 with row1_col[0]:
-    st.markdown('<h4 style="text-align: center; color: black; background-color: #9ec3ff;">Jobs by Location</h4>', unsafe_allow_html=True)
+    container = st.container(border=True)
+    container.write('')
+    container.markdown('<h4 style="text-align: center; color: black; background-color: #9ec3ff;">Jobs by Location</h4>', unsafe_allow_html=True)
     # st.markdown('#### Jobs by Location')
     symbol_map_fig = make_symbol_map(jobs_df, long_lat_df, two_letters_state_df)
-    st.plotly_chart(symbol_map_fig, use_container_width=True)
+    container.plotly_chart(symbol_map_fig, use_container_width=True)
     plt.figure()
 
 with row1_col[1]:
