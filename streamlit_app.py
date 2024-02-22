@@ -38,7 +38,7 @@ def make_wordcloud_chart(jobs_df):
     plt.axis('off')
     plt.imshow(all_wc, interpolation='bilinear')
 
-    return plt
+    return plt, skill_counts.head(5).index.to_list()[:5]
 
 
 ##  Barh charts (count skills by levels)
@@ -80,12 +80,14 @@ row2_col = st.columns(2) # Two columns with equal width
 
 with row2_col[0]:
     st.markdown('#### Top 20 Needed Skills')
-    wc_chart_plt = make_wordcloud_chart(jobs_df)
+    wc_chart_plt, top_5 = make_wordcloud_chart(jobs_df)
     st.pyplot(fig=wc_chart_plt, use_container_width=True)
     plt.figure()
+    st.markdown(f'**Top 5 skills: {", ".join(top_5)}**')
+    
 
 with row2_col[1]:
     st.markdown('#### Top 5 Skills by Level*')
-    st.markdown('**After removing top 5 skills from top 20*')
     barh_skills_chart_plt = make_barh_skills_chart(jobs_df)
+    st.markdown('**After removing top 5 skills from top 20*')
     st.pyplot(fig=barh_skills_chart_plt, use_container_width=True)
