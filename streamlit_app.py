@@ -5,6 +5,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
+import matplotlib.patches as mpatches
 
 # Page configuration
 st.set_page_config(page_title="US Data Science Jobs Dashboard", page_icon=":bar_chart:", layout="wide")
@@ -41,9 +42,27 @@ def make_wordcloud_chart(jobs_df):
 
 
 ##  Barh charts (count skills by levels)
+def make_barh_skills_chart(jobs_df):
+    skill_counts = pd.DataFrame(jobs_df['job_skills'].str.split(', ', expand=False).values.tolist()).stack().value_counts()
+    top_5_skills = skill_counts.head(5).index.to_list()[:5]
+
+    _, axes = plt.subplots(4, 1)
+    levels = ['Principle/Head/Manager', 'Lead Data Science/Scientist', 'Senior Data Science/Scientist', 'Data Science/Scientist']
+    colors = ['tab:pink', 'tab:blue', 'tab:orange', 'tab:cyan']
+
+    for i, l in enumerate(levels):
+        ax = pd.DataFrame(jobs_df[jobs_df['job_level'] == l]['job_skills'].str.split(', ', expand=False).values.tolist()).stack().loc[lambda x: ~x.str.contains('|'.join(top_5_skills))].value_counts().head(5).sort_values().plot.barh(ax=axes[i], color=colors[i], legend=False)
+        axes[i].bar_label(axes[i].containers[0])
+        axes[i].get_xaxis().set_ticks([])
+        axes[i].set_frame_on(False)
+
+    labels = [mpatches.Patch(color=c) for c in colors]
+    plt.legend(labels, levels, ncol=1, loc='lower right', fontsize=5)
+
+    return plt
 
 # Dashboard Main Panel
-st.markdown('## US Data Science Jobs Dashboard')
+st.markdown("<h2 style='text-align: center; color: black;'>US Data Science Jobs Dashboard</h1>", unsafe_allow_html=True)
 
 col = st.columns(2) # Two columns with equal width
 
@@ -52,13 +71,17 @@ with col[0]:
     
 
     st.markdown('### Jobs by Level')
-    barh_chart = make_barh_chart(jobs_df)
-    st.pyplot(barh_chart.figure)
+    barh_chart_ax = make_barh_chart(jobs_df)
+    st.pyplot(barh_chart_ax.figure)
     plt.figure()
 
 with col[1]:
     st.markdown('### Top 20 Needed Skills')
-    wc_chart = make_wordcloud_chart(jobs_df)
-    st.pyplot(fig=wc_chart)
+    wc_chart_plt = make_wordcloud_chart(jobs_df)
+    st.pyplot(fig=wc_chart_plt)
+    plt.figure()
 
-    st.markdown('### Top 5 Need Skills by Level')
+    st.markdown('### Top 5 Skills by Level*')
+    st.markdown('**After removing top 5 skills from top 20*')
+    barh_skills_chart_plt = make_barh_skills_chart(jobs_df)
+    st.pyplot(fig=barh_skills_chart_plt)
