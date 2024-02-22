@@ -8,7 +8,7 @@ from wordcloud import WordCloud
 import matplotlib.patches as mpatches
 
 # Page configuration
-st.set_page_config(page_title="US Data Science Jobs Dashboard", page_icon=":bar_chart:", layout="wide")
+st.set_page_config(page_title='US Data Science Jobs Dashboard', page_icon=':bar_chart:', layout='wide')
 
 
 # Load preprocessed dataset
@@ -62,26 +62,30 @@ def make_barh_skills_chart(jobs_df):
     return plt
 
 # Dashboard Main Panel
-st.markdown("<h2 style='text-align: center; color: black;'>US Data Science Jobs Dashboard</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: black;'>US Data Science Jobs Dashboard</h1>", unsafe_allow_html=True)
 
-col = st.columns(2) # Two columns with equal width
+row1_col = st.columns(2) # Two columns with equal width
 
-with col[0]:
-    st.markdown('### Jobs by Location')
-    
+with row1_col[0]:
+    st.markdown('#### Jobs by Location')
 
-    st.markdown('### Jobs by Level')
+with row1_col[1]:
+    st.markdown('#### Jobs by Level')
     barh_chart_ax = make_barh_chart(jobs_df)
-    st.pyplot(barh_chart_ax.figure)
+    st.pyplot(barh_chart_ax.figure, use_container_width=True)
     plt.figure()
 
-with col[1]:
-    st.markdown('### Top 20 Needed Skills')
+
+row2_col = st.columns(2) # Two columns with equal width
+
+with row2_col[0]:
+    st.markdown('#### Top 20 Needed Skills')
     wc_chart_plt = make_wordcloud_chart(jobs_df)
-    st.pyplot(fig=wc_chart_plt)
+    st.pyplot(fig=wc_chart_plt, use_container_width=True)
     plt.figure()
 
-    st.markdown('### Top 5 Skills by Level*')
+with row2_col[1]:
+    st.markdown('#### Top 5 Skills by Level*')
     st.markdown('**After removing top 5 skills from top 20*')
     barh_skills_chart_plt = make_barh_skills_chart(jobs_df)
-    st.pyplot(fig=barh_skills_chart_plt)
+    st.pyplot(fig=barh_skills_chart_plt, use_container_width=True)
