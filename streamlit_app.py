@@ -75,35 +75,43 @@ def make_barh_skills_chart(jobs_df):
     return plt
 
 # Dashboard Main Panel
-st.markdown("<h3 style='text-align: center; color: black;'>US Data Science Jobs Dashboard</h1>", unsafe_allow_html=True)
+st.markdown('<h2 style="text-align: center; color: black; background-color: #9ec3ff;">US Data Science Jobs Dashboard</h2>', unsafe_allow_html=True)
 
-row1_col = st.columns((2, 1))
+row1_col = st.columns(2)
 
 with row1_col[0]:
-    st.markdown('#### Jobs by Location')
+    st.markdown('<h4 style="text-align: center; color: black; background-color: #9ec3ff;">Jobs by Location</h4>', unsafe_allow_html=True)
+    # st.markdown('#### Jobs by Location')
     symbol_map_fig = make_symbol_map(jobs_df, long_lat_df, two_letters_state_df)
     st.plotly_chart(symbol_map_fig, use_container_width=True)
     plt.figure()
 
 with row1_col[1]:
-    st.markdown('#### Jobs by Level')
+    st.markdown('<h4 style="text-align: center; color: black; background-color: #9ec3ff;">Jobs Table</h4>', unsafe_allow_html=True)
+    # st.markdown('#### Jobs Table')
+
+
+row2_col = st.columns(3) # 3 columns with equal width
+
+with row2_col[0]:
+    st.markdown('<h4 style="text-align: center; color: black; background-color: #9ec3ff;">Jobs by Level</h4>', unsafe_allow_html=True)
+    # st.markdown('#### Jobs by Level')
     barh_chart_ax = make_barh_chart(jobs_df)
     st.pyplot(barh_chart_ax.figure, use_container_width=True)
     plt.figure()
 
-
-row2_col = st.columns(2) # Two columns with equal width
-
-with row2_col[0]:
-    st.markdown('#### Top 20 Needed Skills')
+with row2_col[1]:
+    st.markdown('<h4 style="text-align: center; color: black; background-color: #9ec3ff;">Top 20 Needed Skills</h4>', unsafe_allow_html=True)
+    # st.markdown('#### Top 20 Needed Skills')
     wc_chart_plt, top_5 = make_wordcloud_chart(jobs_df)
     st.markdown(f'**Top 5 skills: {", ".join(top_5)}**')
     st.pyplot(fig=wc_chart_plt, use_container_width=True)
     plt.figure()
     
 
-with row2_col[1]:
-    st.markdown('#### Top 5 Skills by Level*')
+with row2_col[2]:
+    st.markdown('<h4 style="text-align: center; color: black; background-color: #9ec3ff;">Top 5 Skills by Level*</h4>', unsafe_allow_html=True)
+    # st.markdown('#### Top 5 Skills by Level*')
     barh_skills_chart_plt = make_barh_skills_chart(jobs_df)
     st.markdown('**After removing top 5 skills from top 20*')
     st.pyplot(fig=barh_skills_chart_plt, use_container_width=True)
