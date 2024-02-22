@@ -77,7 +77,7 @@ def make_barh_skills_chart(jobs_df):
 # Dashboard Main Panel
 st.markdown("<h3 style='text-align: center; color: black;'>US Data Science Jobs Dashboard</h1>", unsafe_allow_html=True)
 
-row1_col = st.columns(2) # Two columns with equal width
+row1_col = st.columns((2, 1))
 
 with row1_col[0]:
     st.markdown('#### Jobs by Location')
