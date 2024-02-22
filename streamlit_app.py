@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 
 # Page configuration
 st.set_page_config(page_title="US Data Science Jobs Dashboard", page_icon=":bar_chart:", layout="wide")
-st.theme('light')
 
 
 # Load preprocessed dataset
