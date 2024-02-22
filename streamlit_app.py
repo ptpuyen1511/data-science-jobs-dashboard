@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import matplotlib.patches as mpatches
+import plotly.express as px
 
 # Page configuration
 st.set_page_config(page_title='US Data Science Jobs Dashboard', page_icon=':bar_chart:', layout='wide')
@@ -13,15 +14,27 @@ st.set_page_config(page_title='US Data Science Jobs Dashboard', page_icon=':bar_
 
 # Load preprocessed dataset
 jobs_df = pd.read_csv('data/preprocessed_jobs.csv')
+long_lat_df = pd.read_csv('data/state_us.csv')
+two_letters_state_df = pd.read_csv('data/2_letters_state_us.csv')
 
 # Plots
 ## Symbol map (count jobs by location)
+def make_symbol_map(jobs_df, long_lat_df, two_letters_state_df):
+    df = pd.DataFrame(jobs_df.groupby('job_loc_state').size()).rename(columns={0: 'count'}).reset_index()
+    jobs_count_df = df[df['job_loc_state'].str.len() == 2].copy()
+    merged_df = jobs_count_df.merge(long_lat_df.merge(two_letters_state_df, left_on='State', right_on='State/Territory'), left_on='job_loc_state', right_on='Abbreviation')
+    
+    fig = px.scatter_geo(merged_df, lat='Latitude', lon='Longitude',hover_name='State', size='count', scope='usa', color_discrete_sequence=[px.colors.qualitative.Plotly[8]])
+    fig.update_layout(margin={'t':0, 'b': 0, 'l': 0, 'r': 0})
+
+    return fig
+
 
 ## Barh chart (count jobs by level)
 def make_barh_chart(jobs_df):
     count_jobs_df = pd.DataFrame(jobs_df.groupby(['job_level']).size().sort_values(ascending=True)).reset_index().rename(columns={0: 'count'}).set_index('job_level')
     
-    ax = count_jobs_df.plot.barh(title='', legend=False)
+    ax = count_jobs_df.plot.barh(title='', legend=False, color='deepskyblue')
     ax.set_xlabel('Count')
     ax.set_ylabel('Job Level')
     ax.bar_label(ax.containers[0])
@@ -68,6 +81,9 @@ row1_col = st.columns(2) # Two columns with equal width
 
 with row1_col[0]:
     st.markdown('#### Jobs by Location')
+    symbol_map_fig = make_symbol_map(jobs_df, long_lat_df, two_letters_state_df)
+    st.plotly_chart(symbol_map_fig, use_container_width=True)
+    plt.figure()
 
 with row1_col[1]:
     st.markdown('#### Jobs by Level')
