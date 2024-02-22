@@ -81,9 +81,9 @@ row2_col = st.columns(2) # Two columns with equal width
 with row2_col[0]:
     st.markdown('#### Top 20 Needed Skills')
     wc_chart_plt, top_5 = make_wordcloud_chart(jobs_df)
+    st.markdown(f'**Top 5 skills: {", ".join(top_5)}**')
     st.pyplot(fig=wc_chart_plt, use_container_width=True)
     plt.figure()
-    st.markdown(f'**Top 5 skills: {", ".join(top_5)}**')
     
 
 with row2_col[1]:
