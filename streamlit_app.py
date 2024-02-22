@@ -52,8 +52,8 @@ with col[0]:
     
 
     st.markdown('### Jobs by Level')
-    barh_chart = make_barh_chart(jobs_df)
-    st.pyplot(barh_chart.figure)
+    # barh_chart = make_barh_chart(jobs_df)
+    # st.pyplot(barh_chart.figure)
 
 with col[1]:
     st.markdown('### Top 20 Needed Skills')
