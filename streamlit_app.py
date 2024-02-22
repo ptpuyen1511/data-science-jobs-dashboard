@@ -2,14 +2,13 @@
 
 # Import libraries
 import streamlit as st
-import altair as alt
 import pandas as pd
-import plotly.express as px
 import matplotlib.pyplot as plt
 
 # Page configuration
 st.set_page_config(page_title="US Data Science Jobs Dashboard", page_icon=":bar_chart:", layout="wide")
-alt.themes.enable('opaque')
+st.theme('light')
+
 
 # Load preprocessed dataset
 jobs_df = pd.read_csv('data/preprocessed_jobs.csv')
