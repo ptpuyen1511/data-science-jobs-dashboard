@@ -3,3 +3,4 @@ pandas
 altair
 plotly
 matplotlib
+wordcloud
