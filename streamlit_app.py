@@ -92,8 +92,15 @@ with row1_col[1]:
     container = st.container(border=True)
     container.markdown('<h4 style="text-align: center; color: black; background-color: #9ec3ff;">Detailed Jobs Dataframe</h4>', unsafe_allow_html=True)
     # st.markdown('#### Detailed Jobs Dataframe')
-    query = container.text_input('Search ...')
+
+    container.markdown('*Data source: [Data Science Job Postings & Skills (Kaggle)](https://www.kaggle.com/datasets/asaniczka/data-science-job-postings-and-skills?select=job_postings.csv)*')
+
     jobs_clone_df = jobs_df[['job_link', 'job_title', 'company', 'job_location', 'job_type', 'job_skills']].copy()
+
+    query = container.text_input('Search box',
+                                 label_visibility='collapsed',
+                                 placeholder='Search for ...')
+
     if query:
         mask = jobs_clone_df.applymap(lambda x: query.lower() in str(x).lower()).any(axis=1)
         jobs_clone_df = jobs_clone_df[mask]
