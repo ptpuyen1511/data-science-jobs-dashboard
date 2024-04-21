@@ -80,7 +80,7 @@ st.markdown('<h2 style="text-align: center; color: black; background-color: #9ec
 st.write('')
 
 print('Testing with print...') # Testing logging ->
-os.write(1, 'Testing with os.write...')
+os.write(1, f'{'Testing with os.write...'}'.encode())
 
 row1_col = st.columns(2)
 
