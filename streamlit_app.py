@@ -79,8 +79,8 @@ def make_barh_skills_chart(jobs_df):
 st.markdown('<h2 style="text-align: center; color: black; background-color: #9ec3ff;">US Data Science Jobs Dashboard</h2>', unsafe_allow_html=True)
 st.write('')
 
-print('Testing with print...') # Testing logging ->
-os.write(1, b'Testing with os.write...\n')
+os.write(1, b'Testing with os.write...\n') # To output to console on Streamlit Cloud, I must put \n at the end of the string
+                                            # But I dunno why...
 
 row1_col = st.columns(2)
 
