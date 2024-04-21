@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import matplotlib.patches as mpatches
 import plotly.express as px
+import os
 
 # Page configuration
 st.set_page_config(page_title='US Data Science Jobs Dashboard', page_icon=':bar_chart:', layout='wide')
@@ -78,7 +79,8 @@ def make_barh_skills_chart(jobs_df):
 st.markdown('<h2 style="text-align: center; color: black; background-color: #9ec3ff;">US Data Science Jobs Dashboard</h2>', unsafe_allow_html=True)
 st.write('')
 
-print('Testing with print...') # Testing logging
+print('Testing with print...') # Testing logging ->
+os.write(1, 'Testing with os.write...')
 
 row1_col = st.columns(2)
 
