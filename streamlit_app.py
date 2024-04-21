@@ -78,6 +78,8 @@ def make_barh_skills_chart(jobs_df):
 st.markdown('<h2 style="text-align: center; color: black; background-color: #9ec3ff;">US Data Science Jobs Dashboard</h2>', unsafe_allow_html=True)
 st.write('')
 
+print('Testing...') # Testing logging
+
 row1_col = st.columns(2)
 
 with row1_col[0]:
